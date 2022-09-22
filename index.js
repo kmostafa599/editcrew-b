@@ -9,7 +9,7 @@ const orders = require('./orders')
 
 app.use(express.json())
 
-const allowed = ['https://editcrew.spp.io/']
+const allowed = ['https://editcrew.spp.io']
 
 const corsOptions = {
     origin: (origin, callback) => {
