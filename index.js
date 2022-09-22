@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
-
+const rateLimit = require('express-rate-limit')
 
 const tags = require('./tags')
 const orders = require('./orders')
@@ -23,6 +23,11 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
+const limiter = rateLimit({
+    windowMs: 1000,
+    max: 1,
+})
+app.use(limiter)
 
 app.use('/add_tag', tags)
 app.use('/orders', orders)
