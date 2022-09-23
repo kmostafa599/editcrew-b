@@ -1,14 +1,7 @@
-const express = require('express')
-
-const router = express.Router()
-
-// var https = require('follow-redirects').https;
-// var fs = require('fs');
-
 var axios = require('axios');
-const qs = require('qs')
+// const qs = require('qs');
 
-const getAllOrders = async () => {
+const fetchAllOrders = async () => {
 
     var config = {
         method: 'get',
@@ -28,7 +21,7 @@ const getAllOrders = async () => {
 
 }
 
-const getOrder = async (id) => {
+const fetchOrder = async (id) => {
     var config = {
         method: 'get',
         url: `https://editcrew.spp.io/api/v1/orders/${id}`,
@@ -45,20 +38,21 @@ const getOrder = async (id) => {
     }
 
 }
-router.get('/', async (req, res) => {
+const getAllOrders = async (req, res) => {
 
-    const data = await getAllOrders();
+    const data = await fetchAllOrders();
     console.log(data)
     res.json(data)
 
-})
-router.get('/:order_id', async (req, res) => {
+}
+const getOrder = async (req, res) => {
     const { order_id } = req.params
     console.log(order_id)
-    const data = await getOrder(order_id);
+    const data = await fetchOrder(order_id);
     console.log(data)
     res.json(data)
 
-})
-
-module.exports = router
+}
+module.exports = {
+    getAllOrders, getOrder
+  };

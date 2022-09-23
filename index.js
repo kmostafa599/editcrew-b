@@ -3,10 +3,11 @@ const express = require('express')
 const cors = require('cors')
 const app = express()
 const rateLimit = require('express-rate-limit')
+var axios = require('axios');
 
-const tags = require('./tags')
-const orders = require('./orders')
-
+const orders = require('./routes/orders')
+const users = require('./routes/users')
+const tags  = require('./routes/tags')
 app.use(express.json())
 
 const allowed = ['https://editcrew.spp.io']
@@ -23,20 +24,20 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-const limiter = rateLimit({
-    windowMs: 1000,
-    max: 1,
-})
-app.use(limiter)
+// const limiter = rateLimit({
+//     windowMs: 1000,
+//     max: 1,
+// })
+// app.use(limiter)
 
-app.use('/add_tag', tags)
-app.use('/orders', orders)
+
+app.use('/api/orders', orders)
+app.use('/api/users', users)
+app.use('/api/add_tag', tags)
 
 app.get('/:data', (req, res) => {
     const { data } = req.params
     res.json({ message: data })
 })
 
-app.listen("8080", () => {
-    console.log("Port 8080")
-})
+app.listen()
