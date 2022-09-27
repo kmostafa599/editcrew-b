@@ -8,9 +8,10 @@ var axios = require('axios');
 const orders = require('./routes/orders')
 const users = require('./routes/users')
 const tags  = require('./routes/tags')
+const { allowedOrigins } = require('./config')
 app.use(express.json())
 
-const allowed = ['https://editcrew.spp.io']
+const allowed = allowedOrigins
 
 const corsOptions = {
     origin: (origin, callback) => {
